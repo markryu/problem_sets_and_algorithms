@@ -3,6 +3,7 @@ def main():
     """
     Implements the vigenere cipher, which uses keywords for the secret key. The secret key is a word in which represented as index numbers
     The secret key is a word, then transposed as index numbers into an array, adds the index number everytime it iterates through the plain text to produce the cipher text.
+    It's a one way cipher.
     """
 
     import sys
@@ -16,20 +17,13 @@ def main():
     secret_key = list()
     ascii = lowercase + uppercase
     for key_char in secret_keyword:
-        if key_char in ascii:
-            index_number = get_index(ascii, key_char)
-        else:
-            print ("The key contains unsupported characters. Only use ascii characters.")
-            sys.exit()
+        index_number = ascii.find(key_char) if key_char in ascii else sys.exit()
         secret_key.append(index_number)
 
     plain_text = input('plain_text: ')
     plain_text_mapping = list()
     for each_plain_char in plain_text:
-        if each_plain_char in ascii:
-            index_number = get_index(ascii, each_plain_char)
-        else:
-            index_number = each_plain_char
+        index_number = ascii.find(each_plain_char) if each_plain_char in ascii else each_plain_char
         plain_text_mapping.append(index_number)
     key_index = 0
     all_cipher = list()
@@ -58,14 +52,6 @@ def main():
         final_print += printable 
     print (f"cipher_text: {final_print}")
 
-
-def get_index(ascii, each_char):
-    index_number = 0
-    for chars in ascii:
-        if each_char == chars:
-            break
-        index_number += 1
-    return index_number
 
 if __name__=='__main__':
     main()
