@@ -1,11 +1,4 @@
 def main():
-    take_input = getInput()
-    number = take_input[0]
-    allSum = sumSeconds(number) + sumOthers(number)
-    checkSum(allSum, take_input)
-    
-def getInput():
-    import sys
     flag = False
     invalid = False
     while flag == False:
@@ -15,36 +8,24 @@ def getInput():
             if number[:2] == '34' or number[:2] == '37' and len(number) == 15:
                 brand = "AMEX\n"
                 flag = True
-            elif number[:2] == '51' or number[:2] == '52'  or number[:2] == '53' or number[:2] == '54' or number[:2] == '55' and len(number) == 16:
+            elif number[:2] == '51' or number[:2] == '52' or number[:2] == '53' or number[:2] == '54' or number[:2] == '55' and len(number) == 16:
                 flag = True
                 brand = "MASTERCARD\n"
             elif number[0] == '4' and (len(number) == 16 or len(number) == 13):
                 flag = True
                 brand = "VISA\n" 
-            elif len(number) < 13:
-                invalid = True
-                flag = True
             else:
-                flag = False
+                flag = True
+                brand = "None"
         except:
-            None 
-    if invalid == True:
-        sys.exit("INVALID")
-    else:
-        return number, brand
-
-
-def sumOthers(number):
+            flag = False
+   
     length =  (len(number) + 1) * -1
     indices = list()
     for index in number[-1:length:-2]:
         index = int(index)
         indices.append(index)
-    return sum(indices)
 
-
-def sumSeconds(number):
-    length =  (len(number) + 1) * -1
     all_second_indices = list()
     for second_index in number[-2:length:-2]:
         second_index = int(second_index)
@@ -57,15 +38,14 @@ def sumSeconds(number):
         else:
             all_second_indices.append(second_index)
 
-    return sum(all_second_indices)
-
-def checkSum(allSum, take_input):
-    if allSum % 10 == 0:
-        print (take_input[1])
-
+    allSum = sum(all_second_indices) + sum(indices)
+ 
+    if len(number) < 13:
+        print ("INVALID\n")
+    elif allSum % 10 == 0:
+        print (brand)
     else:
-        print("INVALID\n.")
-        main()
+        print("INVALID\n")
 
 
 if __name__=='__main__':
