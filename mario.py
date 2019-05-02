@@ -4,8 +4,9 @@ def main():
     number = getNumber()
     for each in range(number):
         hashes = each + 1
-        print (f"{number*space}{hashes*hash}  {hashes*hash}")
+        print(f"{(number-1)*space}{hashes*hash}  {hashes*hash}")
         number -= 1
+
 
 def getNumber():
     endFlag = False
@@ -17,6 +18,7 @@ def getNumber():
         except:
             endFlag = False
     return number
+
 
 if __name__=='__main__':
     main()
