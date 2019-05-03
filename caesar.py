@@ -3,44 +3,37 @@ def main():
     """ pseudocode
     Provide a commandline argument where the program asks a command line argument, preferrably an integer which will then become the secret key
     The program then asks for a plaintext which then the program prints out the ciphertext after entering the plaintext
-    The program will only rotate alphabetical letters, and will copy as is the punctuation marks
+    The program will only rotate alphabetical letters, and will copy the punctuation marks as is.
     """
     
-    from string import ascii_lowercase as lowercase, ascii_uppercase as uppercase
-    import argparse
+    from sys import argv
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument("secret_key", help="Provide secret key as an integer.")
-    args = parser.parse_args()
+    secret_key = int(argv[1])
+    if len(argv) < 2:
+        sys.exit("Usage: python caesar.py k")
     try:
-        secret_key = int(args.secret_key) % 26
-        plain_text = str(input("plaintext: "))
+        plain_text = input("plaintext: ")
         ciphertext = str()
-        for plaintext_char in plain_text:
-            if plaintext_char in lowercase:
-                lowercase_index = 0
-                for each_index in lowercase:
-                    if plaintext_char == each_index:
-                        cipher_index = lowercase_index + secret_key 
-                        cipher_index = cipher_index % 26
-                        cipher_char = lowercase[cipher_index]
-                    lowercase_index += 1
-
-            elif plaintext_char in uppercase:
-                uppercase_index = 0
-                for each_index in uppercase:
-                    if plaintext_char == each_index:
-                        cipher_index = uppercase_index + secret_key 
-                        cipher_index = cipher_index % 26
-                        cipher_char = uppercase[cipher_index]
-                    uppercase_index += 1
+        uppercase_index = -1
+        for idx, plaintext_char in enumerate(plain_text):
+            if plaintext_char.isalpha():
+                if plaintext_char.isupper():
+                    uppercase_index = idx
+                iterate_char = plaintext_char.lower()
+                for i, letters in enumerate(range(97,123)):
+                    if iterate_char == chr(letters):
+                        cipher_char = chr(97 +(i+ secret_key) % 26)
+                        if uppercase_index == idx:
+                            cipher_char = cipher_char.upper()
             else:
                 cipher_char = plaintext_char
 
             ciphertext = ciphertext + cipher_char
-        print (f"Cipher text is: {ciphertext}")
+        print(f"ciphertext: {ciphertext}")
     except:
-        print ("\nArgument secret key must be an integer")
+        print("Usage: python caesar.py k")
+
+
 
 
 if __name__ == '__main__':
