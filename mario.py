@@ -1,14 +1,6 @@
 def main():
     hash = "#"
     space = ' '
-    number = getNumber()
-    for each in range(number):
-        hashes = each + 1
-        print(f"{(number-1)*space}{hashes*hash}  {hashes*hash}")
-        number -= 1
-
-
-def getNumber():
     endFlag = False
     while endFlag == False:
         try:
@@ -17,7 +9,12 @@ def getNumber():
                 endFlag = True
         except:
             endFlag = False
-    return number
+    for each in range(number):
+        hashes = each + 1
+        print(f"{(number-1)*space}{hashes*hash}  {hashes*hash}")
+        number -= 1
+
+
 
 
 if __name__=='__main__':
