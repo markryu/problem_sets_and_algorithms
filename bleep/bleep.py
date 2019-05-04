@@ -12,7 +12,6 @@ def main():
         banned = (banned_words.read().split())
         {banned_set.add(each) for each in banned}
         caught = s_set & banned_set
-        print (banned_set)
         for each_word in caught:
             s = (s.replace(each_word, '*' * len(each_word)))
         print (s)
