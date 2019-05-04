@@ -1,22 +1,18 @@
 def main():
     flag = False
-    invalid = False
     while flag == False:
         try:
             number_input = int(input("Number: "))
             number = str(number_input)
             if number[:2] == '34' or number[:2] == '37' and len(number) == 15:
                 brand = "AMEX\n"
-                flag = True
             elif number[:2] == '51' or number[:2] == '52' or number[:2] == '53' or number[:2] == '54' or number[:2] == '55' and len(number) == 16:
-                flag = True
                 brand = "MASTERCARD\n"
             elif number[0] == '4' and (len(number) == 16 or len(number) == 13):
-                flag = True
                 brand = "VISA\n" 
             else:
-                flag = True
                 brand = "None"
+            flag = True
         except:
             flag = False
    
