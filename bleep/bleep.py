@@ -10,7 +10,9 @@ def main():
     with open(sys.argv[1], 'r') as banned_words:
         banned_set = set()
         banned = (banned_words.read().split())
-        {banned_set.add(each) for each in banned}
+        for each in banned:
+            banned_set.add(each)
+            banned_set.add(each.upper())
         caught = s_set & banned_set
         for each_word in caught:
             s = (s.replace(each_word, '*' * len(each_word)))
