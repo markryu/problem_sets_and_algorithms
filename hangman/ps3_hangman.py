@@ -136,11 +136,18 @@ def hangman(secretWord):
         print(f"Available letters: {getAvailableLetters(lettersGuessed)}")
         remaining = getAvailableLetters(lettersGuessed)
         newGuess = str()
-        input_flags = (newGuess.isalpha(), (len(newGuess) != 1))
-        while input_flags != (True, True):
-            newGuess=input("Enter a new guess: ")
+        input_flags = bool()
+        while input_flags != True:
+            newGuess = input("Enter a new guess: ")
+            if newGuess.isalpha() != True:
+                print("Only use alphabet letters")
+            elif len(newGuess) != 1:
+                print ("Only use 1 character")
+            else:
+                newGuess = newGuess.lower()
+                input_flags = True
         lettersGuessed.append(newGuess)
-        guessed=getGuessedWord(secretWord, lettersGuessed)
+        guessed = getGuessedWord(secretWord, lettersGuessed)
         if newGuess in secretWord:
             if newGuess in remaining:
                 print (f"Good guess: {guessed}")
@@ -154,11 +161,11 @@ def hangman(secretWord):
         print ("---------\n")
         if max_guesses == 0:
             print (f"\nThe secretWord is {secretWord}")
-            try_again=input(
+            try_again = input(
                 "You have lost, try again? (press y/n and enter): ")
-            flag=True
+            flag = True
             if try_again == 'y':
-                secretWord=chooseWord(wordlist).lower()
+                secretWord = chooseWord(wordlist).lower()
                 hangman(secretWord)
 
             else:
@@ -170,5 +177,5 @@ def hangman(secretWord):
 # and run this file to test! (hint: you might want to pick your own
 # secretWord while you're testing)
 
-secretWord=chooseWord(wordlist).lower()
+secretWord = chooseWord(wordlist).lower()
 hangman(secretWord)
